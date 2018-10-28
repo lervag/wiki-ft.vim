@@ -1,0 +1,54 @@
+" A simple wiki plugin for Vim
+"
+" Maintainer: Karl Yngve Lervåg
+" Email:      karl.yngve@gmail.com
+" License:    MIT license
+"
+
+if exists('b:did_ftplugin') | finish | endif
+let b:did_ftplugin = 1
+
+setlocal nolisp
+setlocal nomodeline
+setlocal nowrap
+setlocal foldmethod=expr
+setlocal foldexpr=WikiFoldLevel(v:lnum)
+setlocal foldtext=WikiFoldText()
+setlocal suffixesadd=.wiki
+setlocal isfname-=[,]
+setlocal autoindent
+setlocal nosmartindent
+setlocal nocindent
+let &l:commentstring = '// %s'
+setlocal formatoptions-=o
+setlocal formatoptions+=n
+let &l:formatlistpat = '\v^\s*%(\d|\l|i+)\.\s'
+
+augroup wiki_buffer
+  autocmd BufWinEnter <buffer> setlocal conceallevel=2
+augroup END
+
+function! WikiFoldLevel(lnum) abort " {{{1
+  let l:line = getline(a:lnum)
+
+  if wiki#u#is_code(a:lnum)
+    return l:line =~# '^\s*```'
+          \ ? (wiki#u#is_code(a:lnum+1) ? 'a1' : 's1')
+          \ : '='
+  endif
+
+  if l:line =~# wiki#rx#header()
+    return '>' . len(matchstr(l:line, '#*'))
+  endif
+
+  return '='
+endfunction
+
+" }}}1
+function! WikiFoldText() abort " {{{1
+  let l:line = getline(v:foldstart)
+  let l:text = substitute(l:line, '^\s*', repeat(' ',indent(v:foldstart)), '')
+  return l:text
+endfunction
+
+" }}}1

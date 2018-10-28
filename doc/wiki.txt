@@ -1,0 +1,147 @@
+*wiki-ft.txt*    A simple `.wiki` filetype plugin for Vim
+*wiki-ft*
+
+Author:  Karl Yngve Lervåg <karl.yngve@gmail.com>
+License: MIT license {{{
+
+  Copyright (c) 2018 Karl Yngve Lervåg
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+
+}}}
+
+==============================================================================
+CONTENTS                                                     *wiki-ft-contents*
+
+  Introduction                                  |wiki-ft-intro|
+  Syntax highlighting                           |wiki-ft-syntax|
+    Common elements                             |wiki-ft-syntax-common|
+    Links                                       |wiki-ft-syntax-links|
+    Code blocks                                 |wiki-ft-syntax-code|
+
+==============================================================================
+INTRODUCTION                                                    *wiki-ft-intro*
+
+This is a simple filetype plugin for `.wiki` files that adds some syntax
+highlighting and very simple folding functions. It depends on |wiki.vim|
+(https://github.com/lervag/wiki.vim) for proper highlighting of links.
+
+The folding function simply adds folds according to section depth.
+
+Installation~
+
+If you use |vim-plug| (https://github.com/junegunn/vim-plug), then add the
+following lines to your `vimrc` file: >
+
+  Plug 'lervag/wiki.vim'
+  Plug 'lervag/wiki-ft.vim'
+
+  " If you do not want to use the wiki.vim plugin:
+  let g:wiki_loaded = 1
+
+==============================================================================
+SYNTAX HIGHLIGHTING                                            *wiki-ft-syntax*
+
+This plugin supports a relatively standard type of simple Markdown syntax.
+
+------------------------------------------------------------------------------
+COMMON ELEMENTS                                         *wiki-ft-syntax-common*
+
+The following listing shows the set of common syntax elements that are
+currently supported: >
+
+  # Level 1 headings
+
+  ## Level 2 headings
+
+  Text formatting and math:
+  - *bold text*
+  - _italic text_
+  - `inline code`
+  - $f(x) = 1$
+
+  Tables:
+  |-----+-----------|
+  | ID  | Value     |
+  |-----+-----------|
+  | 1   | Entry 1   |
+  | 2   | Entry 2   |
+  | ... | Entry ... |
+  | 12  | Entry 12  |
+  |-----+-----------|
+
+  Check lists:
+  - [ ] List item 1
+  - [.] List item 2
+  - [o] List item 3
+  - [x] List item 4
+
+  Quotes:
+  > Blocks of text like this are highlighted as quotes.
+  > Continued line of quote.
+
+  > Blocks of text like this are highlighted as quotes even if
+  the continued lines do not start with the initial quote symbol.
+
+------------------------------------------------------------------------------
+LINKS                                                    *wiki-ft-syntax-links*
+
+A link typically consists of an url and a description, although the
+description may be ignored.  The links will be highlighted and the |+conceal|
+feature is used to only display the descriptions if they are present.
+
+The following listing shows some examples of links. >
+
+  [[Link]]
+  [[Link|With description]]
+
+  [Description](Link)
+
+  Inline numbered links like this is also supported [0]. The link is supplied
+  below.
+
+  [0]: Link
+<
+URLs are also highlighted directly, e.g.: >
+
+  journal:2013-04-05
+  http://www.google.com
+  doi:10.1002%2Fandp.19053220607
+  file:/path/to/file
+
+------------------------------------------------------------------------------
+CODE BLOCKS                                               *wiki-ft-syntax-code*
+
+Code blocks are blocks like the following: >
+
+  ```sh
+  ls ~
+  echo "hello world"
+  ```
+
+If the code block has a language specifier, then the block will be highlighted
+accordingly.
+
+Note: The file is parsed when opened for code blocks, and only the languages
+      detected are highlighted. Thus, if one adds a new code block with a new
+      language, one may need to reload the file to get the appropriate
+      highlighting.
+
+==============================================================================
+ vim:tw=78:ts=8:ft=help:norl:
