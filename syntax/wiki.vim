@@ -1,4 +1,4 @@
-" A simple wiki plugin for Vim
+" A simple Vim ftplugin for .wiki files
 "
 " Maintainer: Karl Yngve Lervåg
 " Email:      karl.yngve@gmail.com
