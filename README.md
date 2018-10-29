@@ -5,9 +5,7 @@ that adds some syntax highlighting and very simple folding functions. It
 depends on [`wiki.vim`](https://github.com/lervag/wiki.vim) for proper
 highlighting of links.
 
-See [`:h
-wiki-ft`](https://github.com/lervag/wiki-ft.vim/blob/master/doc/wiki-ft.txt)
-for more information.
+See [`:h wiki-ft`](doc/wiki-ft.txt) for more information.
 
 # Installation
 
