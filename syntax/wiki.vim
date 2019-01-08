@@ -151,7 +151,7 @@ syntax match wikiPreEnd /^\s*```\s*$/ contained
 syntax match wikiPreStartName /\w\+/ contained
 
 let s:ignored = {
-      \ 'sh' : ['shCommandSub'],
+      \ 'sh' : ['shCommandSub', 'shCommandSubBQ'],
       \ 'pandoc' : ['pandocDelimitedCodeBlock', 'pandocNoFormatted'],
       \ 'ruby' : ['rubyString'],
       \ 'make' : ['makeBString', 'makeIdent'],
