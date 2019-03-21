@@ -28,6 +28,20 @@ augroup wiki_buffer
   autocmd BufWinEnter <buffer> setlocal conceallevel=2
 augroup END
 
+onoremap <buffer> <plug>(wiki-ac) :call wiki_ft#text_obj#code(0, 0)<cr>
+xnoremap <buffer> <plug>(wiki-ac) :<c-u>call wiki_ft#text_obj#code(0, 1)<cr>
+onoremap <buffer> <plug>(wiki-ic) :call wiki_ft#text_obj#code(1, 0)<cr>
+xnoremap <buffer> <plug>(wiki-ic) :<c-u>call wiki_ft#text_obj#code(1, 1)<cr>
+
+let s:mappings = {
+      \ 'o_<plug>(wiki-ac)' : 'ac',
+      \ 'x_<plug>(wiki-ac)' : 'ac',
+      \ 'o_<plug>(wiki-ic)' : 'ic',
+      \ 'x_<plug>(wiki-ic)' : 'ic',
+      \}
+
+call wiki#init#apply_mappings_from_dict(s:mappings, '<buffer>')
+
 function! WikiFoldLevel(lnum) abort " {{{1
   let l:line = getline(a:lnum)
 
