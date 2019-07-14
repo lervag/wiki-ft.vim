@@ -248,6 +248,7 @@ highlight default link WikiEq Number
 " {{{1 Miscellaneous
 
 execute 'syntax match wikiTodo /' . wiki#rx#todo() . '/'
+syntax keyword wikiTodo TODO:
 highlight default link wikiTodo Todo
 
 execute 'syntax match wikiDone /' . wiki#rx#done() . '/'
