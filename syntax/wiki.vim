@@ -252,6 +252,7 @@ syntax keyword wikiTodo TODO:
 highlight default link wikiTodo Todo
 
 execute 'syntax match wikiDone /' . wiki#rx#done() . '/'
+syntax keyword wikiDone DONE:
 highlight default link wikiDone Statement
 
 syntax region wikiQuote start=/^>\s\+/ end=/^$/ contains=wikiQuoteChar
