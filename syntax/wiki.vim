@@ -154,7 +154,7 @@ let s:ignored = {
       \ 'sh' : ['shCommandSub', 'shCommandSubBQ'],
       \ 'pandoc' : ['pandocDelimitedCodeBlock', 'pandocNoFormatted'],
       \ 'ruby' : ['rubyString'],
-      \ 'make' : ['makeBString', 'makeIdent'],
+      \ 'make' : ['makeBString', 'makeIdent', 'makeDefine'],
       \ 'resolv' : ['resolvError'],
       \ 'python' : ['pythonFString'],
       \ 'tex' : ['texString'],
