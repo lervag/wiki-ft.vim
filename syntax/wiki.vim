@@ -45,6 +45,7 @@ unlet s:i s:gcolors s:ccolors
 " Add syntax groups and clusters for links
 for [s:group, s:rx; s:contained] in [
       \ ['wikiLinkUrl',       'url',         'wikiLinkUrlConceal'],
+      \ ['wikiLinkUrl',       'shortcite'],
       \ ['wikiLinkWiki',      'wiki',        'wikiLinkWikiConceal'],
       \ ['wikiLinkRef',       'ref_single'],
       \ ['wikiLinkRefTarget', 'ref_target',  'wikiLinkUrl'],
