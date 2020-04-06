@@ -46,9 +46,9 @@ unlet s:i s:gcolors s:ccolors
 for [s:group, s:rx; s:contained] in [
       \ ['wikiLinkUrl',       'url',         'wikiLinkUrlConceal'],
       \ ['wikiLinkWiki',      'wiki',        'wikiLinkWikiConceal'],
-      \ ['wikiLinkRef',       'ref_simple'],
+      \ ['wikiLinkRef',       'ref_single'],
       \ ['wikiLinkRefTarget', 'ref_target',  'wikiLinkUrl'],
-      \ ['wikiLinkRef',       'ref',         'wikiLinkRefConceal'],
+      \ ['wikiLinkRef',       'ref_double',  'wikiLinkRefConceal'],
       \ ['wikiLinkMd',        'md',          'wikiLinkMdConceal'],
       \ ['wikiLinkDate',      'date'],
       \]
