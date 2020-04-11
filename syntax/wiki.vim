@@ -233,7 +233,7 @@ execute 'syntax match wikiItalicT'
       \ 'contained contains=@Spell'
 syntax match wikiItalicConceal /_/ contained conceal
 
-highlight default wikiBold term=bold cterm=bold ctermfg=black gui=bold
+highlight default wikiBold term=bold cterm=bold gui=bold
 highlight default wikiItalic term=italic cterm=italic gui=italic
 
 " }}}1
