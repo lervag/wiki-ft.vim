@@ -233,8 +233,8 @@ execute 'syntax match wikiItalicT'
       \ 'contained contains=@Spell'
 syntax match wikiItalicConceal /_/ contained conceal
 
-highlight default wikiBold term=bold cterm=bold gui=bold
-highlight default wikiItalic term=italic cterm=italic gui=italic
+highlight default wikiBold cterm=bold gui=bold
+highlight default wikiItalic cterm=italic gui=italic
 
 " }}}1
 " {{{1 Math
@@ -256,7 +256,8 @@ execute 'syntax match wikiDone /' . wiki#rx#done() . '/'
 syntax keyword wikiDone DONE:
 highlight default link wikiDone Statement
 
-syntax region wikiQuote start=/^>\s\+/ end=/^$/ contains=wikiQuoteChar
+syntax region wikiQuote start=/^>\s\+/ end=/^$/
+      \ contains=wikiQuoteChar,wikiBold,wikiCode
 syntax match wikiQuoteChar contained /^>/
 highlight default link wikiQuoteChar Comment
 highlight default link wikiQuote Conceal
