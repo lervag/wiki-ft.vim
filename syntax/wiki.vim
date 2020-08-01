@@ -43,7 +43,7 @@ unlet s:i s:gcolors s:ccolors
 " {{{1 Links
 
 " Add syntax groups and clusters for links
-for [s:group, s:rx; s:contained] in [
+for [s:group, s:type; s:contained] in [
       \ ['wikiLinkUrl',       'url',         'wikiLinkUrlConceal'],
       \ ['wikiLinkUrl',       'shortcite'],
       \ ['wikiLinkWiki',      'wiki',        'wikiLinkWikiConceal'],
@@ -53,15 +53,16 @@ for [s:group, s:rx; s:contained] in [
       \ ['wikiLinkMd',        'md',          'wikiLinkMdConceal'],
       \ ['wikiLinkDate',      'date'],
       \]
+  let s:rx = wiki#link#{s:type}#matcher().rx
   execute 'syntax cluster wikiLink  add=' . s:group
   execute 'syntax match' s:group
-        \ '/' . wiki#link#get_matcher_opt(s:rx, 'rx') . '/'
+        \ '/' . s:rx . '/'
         \ 'display contains=@NoSpell'
         \ . (empty(s:contained) ? '' : ',' . join(s:contained, ','))
 
   call filter(s:contained, 'v:val !~# ''Conceal''')
   execute 'syntax match' s:group . 'T'
-        \ '/' . wiki#link#get_matcher_opt(s:rx, 'rx') . '/'
+        \ '/' . s:rx . '/'
         \ 'display contained contains=@NoSpell'
         \ . (empty(s:contained) ? '' : ',' . join(s:contained, ','))
 endfor
@@ -89,7 +90,7 @@ highlight default link wikiLinkRef Underlined
 highlight default link wikiLinkRefTarget Underlined
 highlight default link wikiLinkDate MoreMsg
 
-unlet s:group s:rx s:contained
+unlet s:group s:type s:contained s:rx
 
 " }}}1
 " {{{1 Table
@@ -218,18 +219,18 @@ highlight wikiListTodoPartial cterm=none gui=none
 " {{{1 Formatting
 
 execute 'syntax match wikiBold'
-      \ '/' . wiki#rx#bold() . '/'
+      \ '/' . wiki#rx#bold . '/'
       \ 'contains=wikiBoldConceal,@Spell'
 execute 'syntax match wikiBoldT'
-      \ '/' . wiki#rx#bold() . '/'
+      \ '/' . wiki#rx#bold . '/'
       \ 'contained contains=@Spell'
 syntax match wikiBoldConceal /*/ contained conceal
 
 execute 'syntax match wikiItalic'
-      \ '/' . wiki#rx#italic() . '/'
+      \ '/' . wiki#rx#italic . '/'
       \ 'contains=wikiItalicConceal,@Spell'
 execute 'syntax match wikiItalicT'
-      \ '/' . wiki#rx#italic() . '/'
+      \ '/' . wiki#rx#italic . '/'
       \ 'contained contains=@Spell'
 syntax match wikiItalicConceal /_/ contained conceal
 
@@ -248,11 +249,11 @@ highlight default link WikiEq Number
 " }}}1
 " {{{1 Miscellaneous
 
-execute 'syntax match wikiTodo /' . wiki#rx#todo() . '/'
+execute 'syntax match wikiTodo /' . wiki#rx#todo . '/'
 syntax keyword wikiTodo TODO:
 highlight default link wikiTodo Todo
 
-execute 'syntax match wikiDone /' . wiki#rx#done() . '/'
+execute 'syntax match wikiDone /' . wiki#rx#done . '/'
 syntax keyword wikiDone DONE:
 highlight default link wikiDone Statement
 

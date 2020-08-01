@@ -51,7 +51,7 @@ function! WikiFoldLevel(lnum) abort " {{{1
           \ : '='
   endif
 
-  if l:line =~# wiki#rx#header()
+  if l:line =~# wiki#rx#header
     return '>' . len(matchstr(l:line, '#*'))
   endif
 
