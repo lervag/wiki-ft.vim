@@ -44,13 +44,14 @@ unlet s:i s:gcolors s:ccolors
 
 " Add syntax groups and clusters for links
 for [s:group, s:type; s:contained] in [
-      \ ['wikiLinkUrl',       'url',         'wikiLinkUrlConceal'],
+      \ ['wikiLinkUrl',       'url',         'wikiConcealLink'],
       \ ['wikiLinkUrl',       'shortcite'],
-      \ ['wikiLinkWiki',      'wiki',        'wikiLinkWikiConceal'],
+      \ ['wikiLinkWiki',      'wiki',        'wikiConcealLinkWiki'],
       \ ['wikiLinkRef',       'ref_single'],
       \ ['wikiLinkRefTarget', 'ref_target',  'wikiLinkUrl'],
-      \ ['wikiLinkRef',       'ref_double',  'wikiLinkRefConceal'],
-      \ ['wikiLinkMd',        'md',          'wikiLinkMdConceal'],
+      \ ['wikiLinkRef',       'ref_double',  'wikiConcealLinkRef'],
+      \ ['wikiLinkMd',        'md',          'wikiConcealLinkMd'],
+      \ ['wikiLinkMdImg',     'md_fig',      'wikiConcealLinkMdImg'],
       \ ['wikiLinkDate',      'date'],
       \]
   let s:rx = wiki#link#{s:type}#matcher().rx
@@ -67,25 +68,30 @@ for [s:group, s:type; s:contained] in [
         \ . (empty(s:contained) ? '' : ',' . join(s:contained, ','))
 endfor
 
-syntax match wikiLinkUrlConceal
+syntax match wikiConcealLinkUrl
       \ `\%(///\=[^/ \t]\+/\)\zs\S\+\ze\%([/#?]\w\|\S\{15}\)`
       \ cchar=~ contained transparent contains=NONE conceal
-syntax match wikiLinkWikiConceal /\[\[\%(\/\|#\)\?\%([^\\\]]\{-}|\)\?/
+syntax match wikiConcealLinkWiki /\[\[\%(\/\|#\)\?\%([^\\\]]\{-}|\)\?/
       \ contained transparent contains=NONE conceal
-syntax match wikiLinkWikiConceal /\]\]/
+syntax match wikiConcealLinkWiki /\]\]/
       \ contained transparent contains=NONE conceal
-syntax match wikiLinkMdConceal /\[/
+syntax match wikiConcealLinkMd /\[/
       \ contained transparent contains=NONE conceal
-syntax match wikiLinkMdConceal /\]([^\\]\{-})/
+syntax match wikiConcealLinkMd /\]([^\\]\{-})/
       \ contained transparent contains=NONE conceal
-syntax match wikiLinkRefConceal /[\]\[]\@<!\[/
+syntax match wikiConcealLinkMdImg /!\[/
       \ contained transparent contains=NONE conceal
-syntax match wikiLinkRefConceal /\]\[[^\\\[\]]\{-}\]/
+syntax match wikiConcealLinkMdImg /\]([^\\]\{-})/
+      \ contained transparent contains=NONE conceal
+syntax match wikiConcealLinkRef /[\]\[]\@<!\[/
+      \ contained transparent contains=NONE conceal
+syntax match wikiConcealLinkRef /\]\[[^\\\[\]]\{-}\]/
       \ contained transparent contains=NONE conceal
 
 highlight default link wikiLinkUrl ModeMsg
 highlight default link wikiLinkWiki Underlined
 highlight default link wikiLinkMd Underlined
+highlight default link wikiLinkMdImg MoreMsg
 highlight default link wikiLinkRef Underlined
 highlight default link wikiLinkRefTarget Underlined
 highlight default link wikiLinkDate MoreMsg
@@ -143,8 +149,8 @@ unlet s:group s:target
 " }}}1
 " {{{1 Code and nested syntax
 
-syntax match wikiCode /`[^`]\+`/ contains=wikiCodeConceal,@NoSpell
-syntax match wikiCodeConceal contained /`/ conceal
+syntax match wikiCode /`[^`]\+`/ contains=wikiConcealCode,@NoSpell
+syntax match wikiConcealCode contained /`/ conceal
 syntax match wikiCodeT /`[^`]\+`/ contained
 
 syntax region wikiPre start=/^\s*```\s*/ end=/```\s*$/ contains=@NoSpell
@@ -220,19 +226,19 @@ highlight wikiListTodoPartial cterm=none gui=none
 
 execute 'syntax match wikiBold'
       \ '/' . wiki#rx#bold . '/'
-      \ 'contains=wikiBoldConceal,@Spell'
+      \ 'contains=wikiConcealBold,@Spell'
 execute 'syntax match wikiBoldT'
       \ '/' . wiki#rx#bold . '/'
       \ 'contained contains=@Spell'
-syntax match wikiBoldConceal /*/ contained conceal
+syntax match wikiConcealBold /*/ contained conceal
 
 execute 'syntax match wikiItalic'
       \ '/' . wiki#rx#italic . '/'
-      \ 'contains=wikiItalicConceal,@Spell'
+      \ 'contains=wikiConcealItalic,@Spell'
 execute 'syntax match wikiItalicT'
       \ '/' . wiki#rx#italic . '/'
       \ 'contained contains=@Spell'
-syntax match wikiItalicConceal /_/ contained conceal
+syntax match wikiConcealItalic /_/ contained conceal
 
 highlight default wikiBold cterm=bold gui=bold
 highlight default wikiItalic cterm=italic gui=italic
@@ -240,9 +246,9 @@ highlight default wikiItalic cterm=italic gui=italic
 " }}}1
 " {{{1 Math
 
-syntax match wikiEq  /\$[^$`]\+\$/ contains=wikiEqConceal
+syntax match wikiEq  /\$[^$`]\+\$/ contains=wikiConcealEq
 syntax match wikiEqT /\$[^$`]\+\$/ contained
-syntax match wikiEqConceal /\$/ contained conceal
+syntax match wikiConcealEq /\$/ contained conceal
 
 highlight default link WikiEq Number
 
