@@ -209,7 +209,7 @@ unlet s:ignored
 " {{{1 Lists
 
 syntax match wikiList /^\s*[-*]\ze\s\+/
-syntax match wikiList /::\%(\s\|$\)/
+syntax match wikiList /::\ze\%(\s\|$\)/
 syntax match wikiListTodo /^\s*[-*] \[ \]/ contains=wikiList
 syntax match wikiListTodoPartial /^\s*[-*] \[[.o]\]/ contains=wikiList
 syntax match wikiListTodoDone /^\s*[-*] \[[xX]\]/ contains=wikiList
