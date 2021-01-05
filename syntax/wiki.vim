@@ -120,7 +120,6 @@ for [s:group, s:target] in [
       \ ['wikiBoldT', 'wikiBold'],
       \ ['wikiItalicT', 'wikiItalic'],
       \ ['wikiCodeT', 'wikiCode'],
-      \ ['wikiEqT', 'WikiEq'],
       \ ['wikiLinkUrlT', 'wikiLinkUrl'],
       \ ['wikiLinkWikiT', 'wikiLinkWiki'],
       \ ['wikiLinkRefT', 'wikiLinkRef'],
@@ -168,9 +167,13 @@ let s:ignored = {
       \ 'tex' : ['texString', 'texLigature'],
       \}
 
-for s:ft in map(
-        \ filter(getline(1, '$'), 'v:val =~# ''^\s*```\w\+\s*$'''),
-        \ 'matchstr(v:val, ''```\zs\w\+\ze\s*$'')')
+let s:nested_types = ['tex']
+let s:nested_types += map(
+      \ filter(getline(1, '$'), 'v:val =~# ''^\s*```\w\+\s*$'''),
+      \ 'matchstr(v:val, ''```\zs\w\+\ze\s*$'')')
+call uniq(sort(s:nested_types))
+
+for s:ft in s:nested_types
   let s:cluster = '@wikiNested' . toupper(s:ft)
   let s:group = 'wikiPre' . toupper(s:ft)
 
@@ -246,11 +249,14 @@ highlight default wikiItalic cterm=italic gui=italic
 " }}}1
 " {{{1 Math
 
-syntax match wikiEq  /\$[^$`]\+\$/ contains=wikiConcealEq
-syntax match wikiEqT /\$[^$`]\+\$/ contained
-syntax match wikiConcealEq /\$/ contained conceal
+" Note: The @wikiNestedTEX is defined earlier!
 
-highlight default link WikiEq Number
+syntax region wikiEq
+      \ start="\$" skip="\\\\\|\\\$" end="\$"
+      \ contains=@wikiNestedTEX keepend
+syntax region wikiEq
+      \ start="\$\$" skip="\\\\\|\\\$" end="\$\$"
+      \ contains=@wikiNestedTEX keepend
 
 " }}}1
 " {{{1 Miscellaneous
