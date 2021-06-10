@@ -60,8 +60,10 @@ endfunction
 
 " }}}1
 function! WikiFoldText() abort " {{{1
-  let l:line = getline(v:foldstart)
-  let l:text = substitute(l:line, '^\s*', repeat(' ',indent(v:foldstart)), '')
+  let l:end_chars = repeat(' ', winwidth(0))
+  let l:lines_count = v:foldend - v:foldstart + 1
+  let l:lines_text = l:lines_count ==# 1 ? ' line' : ' lines'
+  let l:text = getline(v:foldstart).' ('.l:lines_count.lines_text.')'.l:end_chars
   return l:text
 endfunction
 
