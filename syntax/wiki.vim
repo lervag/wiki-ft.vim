@@ -287,4 +287,7 @@ highlight default link wikiVersion Statement
 highlight default link wikiTime    Number
 highlight default link wikiLine Identifier
 
+syntax match wikiEnvvar "\$\w\{2,}"
+highlight default link wikiEnvvar ModeMsg
+
 " }}}1
