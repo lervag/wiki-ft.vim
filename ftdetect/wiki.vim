@@ -5,6 +5,4 @@
 " License:    MIT license
 "
 
-augroup ftdetect
-  autocmd BufRead,BufNewFile *.wiki set filetype=wiki
-augroup END
+autocmd BufRead,BufNewFile *.wiki set filetype=wiki
