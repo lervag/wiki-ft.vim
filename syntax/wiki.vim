@@ -229,7 +229,7 @@ highlight wikiListTodoPartial cterm=none gui=none
 
 execute 'syntax match wikiBold'
       \ '/' . wiki#rx#bold . '/'
-      \ 'contains=wikiConcealBold,@Spell'
+      \ 'contains=wikiBoldItalic,wikiConcealBold,@Spell'
 execute 'syntax match wikiBoldT'
       \ '/' . wiki#rx#bold . '/'
       \ 'contained contains=@Spell'
@@ -237,7 +237,7 @@ syntax match wikiConcealBold /*/ contained conceal
 
 execute 'syntax match wikiItalic'
       \ '/' . wiki#rx#italic . '/'
-      \ 'contains=wikiConcealItalic,@Spell'
+      \ 'contains=wikiItalicBold,wikiConcealItalic,@Spell'
 execute 'syntax match wikiItalicT'
       \ '/' . wiki#rx#italic . '/'
       \ 'contained contains=@Spell'
