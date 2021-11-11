@@ -244,11 +244,11 @@ execute 'syntax match wikiItalicT'
 syntax match wikiConcealItalic /_/ contained conceal
 
 execute 'syntax match wikiBoldItalic'
-      \ '/' . wiki#rx#bolditalic . '/'
-      \ 'contains=wikiConcealBold,wikiConcealItalic,@Spell'
+      \ '/' . wiki#rx#italic . '/'
+      \ 'contains=wikiConcealBold,wikiConcealItalic,@Spell contained'
 execute 'syntax match wikiItalicBold'
-      \ '/' . wiki#rx#italicbold . '/'
-      \ 'contains=wikiConcealBold,wikiConcealItalic,@Spell'
+      \ '/' . wiki#rx#bold . '/'
+      \ 'contains=wikiConcealBold,wikiConcealItalic,@Spell contained'
 
 highlight default wikiBold cterm=bold gui=bold
 highlight default wikiItalic cterm=italic gui=italic
