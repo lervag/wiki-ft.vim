@@ -165,6 +165,8 @@ let s:ignored = {
       \ 'resolv' : ['resolvError'],
       \ 'python' : ['pythonFString'],
       \ 'tex' : ['texString', 'texLigature'],
+      \ 'muttrc' : ['muttrcShellString', 'muttrcEscape'],
+      \ 'neomuttrc' : ['muttrcShellString', 'muttrcEscape'],
       \}
 
 let s:nested_types = ['tex']
