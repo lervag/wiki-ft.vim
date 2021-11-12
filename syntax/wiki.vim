@@ -231,7 +231,7 @@ highlight wikiListTodoPartial cterm=none gui=none
 
 execute 'syntax match wikiBold'
       \ '/' . wiki#rx#bold . '/'
-      \ 'contains=wikiConcealBold,@Spell'
+      \ 'contains=wikiBoldItalic,wikiConcealBold,@Spell'
 execute 'syntax match wikiBoldT'
       \ '/' . wiki#rx#bold . '/'
       \ 'contained contains=@Spell'
@@ -239,18 +239,18 @@ syntax match wikiConcealBold /*/ contained conceal
 
 execute 'syntax match wikiItalic'
       \ '/' . wiki#rx#italic . '/'
-      \ 'contains=wikiConcealItalic,@Spell'
+      \ 'contains=wikiItalicBold,wikiConcealItalic,@Spell'
 execute 'syntax match wikiItalicT'
       \ '/' . wiki#rx#italic . '/'
       \ 'contained contains=@Spell'
 syntax match wikiConcealItalic /_/ contained conceal
 
 execute 'syntax match wikiBoldItalic'
-      \ '/' . wiki#rx#bolditalic . '/'
-      \ 'contains=wikiConcealBold,wikiConcealItalic,@Spell'
+      \ '/' . wiki#rx#italic . '/'
+      \ 'contains=wikiConcealBold,wikiConcealItalic,@Spell contained'
 execute 'syntax match wikiItalicBold'
-      \ '/' . wiki#rx#italicbold . '/'
-      \ 'contains=wikiConcealBold,wikiConcealItalic,@Spell'
+      \ '/' . wiki#rx#bold . '/'
+      \ 'contains=wikiConcealBold,wikiConcealItalic,@Spell contained'
 
 highlight default wikiBold cterm=bold gui=bold
 highlight default wikiItalic cterm=italic gui=italic
