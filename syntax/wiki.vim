@@ -68,6 +68,10 @@ for [s:group, s:type; s:contained] in [
         \ . (empty(s:contained) ? '' : ',' . join(s:contained, ','))
 endfor
 
+" Proper matching of bracketed urls
+syntax match wikiLinkUrl "<\l\+:\%(\/\/\)\?[^>]\+>"
+      \ display contains=@NoSpell,wikiConcealLink
+
 syntax match wikiConcealLinkUrl
       \ `\%(///\=[^/ \t]\+/\)\zs\S\+\ze\%([/#?]\w\|\S\{15}\)`
       \ cchar=~ contained transparent contains=NONE conceal
