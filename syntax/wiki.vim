@@ -197,8 +197,10 @@ for s:ft in s:nested_types
   endfor
 
   let b:current_syntax = 'wiki'
-  let &l:foldmethod = s:fdm
   let &iskeyword = s:iskeyword
+  if &l:foldmethod !=# s:fdm
+    let &l:foldmethod = s:fdm
+  endif
 
   execute 'syntax region' s:group
         \ 'start=/^\s*```' . s:ft . '/ end=/```\s*$/'
