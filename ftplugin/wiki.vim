@@ -49,7 +49,7 @@ function! WikiFoldLevel(lnum) abort " {{{1
     return wiki#u#is_code(a:lnum+1) ? 'a1' : 's1'
   endif
 
-  if l:line =~# g:wiki#rx#header && !wiki#u#is_code(a:lnum)
+  if l:line =~# g:wiki#rx#header_md_atx && !wiki#u#is_code(a:lnum)
     return '>' . len(matchstr(l:line, '#*'))
   endif
 
