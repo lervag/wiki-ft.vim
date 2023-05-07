@@ -46,7 +46,6 @@ unlet s:i s:gcolors s:ccolors
 for [s:group, s:type; s:contained] in [
       \ ['wikiLinkUrl',       'url',            'wikiConcealLink'],
       \ ['wikiLinkUrl',       'cite'],
-      \ ['wikiLinkUrl',       'shortcite'],
       \ ['wikiLinkWiki',      'wiki',           'wikiConcealLinkWiki'],
       \ ['wikiLinkRef',       'ref_shortcut'],
       \ ['wikiLinkRef',       'ref_full',       'wikiConcealLinkRef'],
@@ -55,11 +54,7 @@ for [s:group, s:type; s:contained] in [
       \ ['wikiLinkMdImg',     'md_fig',         'wikiConcealLinkMdImg'],
       \ ['wikiLinkDate',      'date'],
       \]
-  try
-    let s:rx = wiki#link#{s:type}#matcher().rx
-  catch /E117:/
-    continue
-  endtry
+  let s:rx = wiki#link#{s:type}#matcher().rx
 
   execute 'syntax cluster wikiLink  add=' . s:group
   execute 'syntax match' s:group
