@@ -54,7 +54,7 @@ for [s:group, s:type; s:contained] in [
       \ ['wikiLinkMdImg',     'md_fig',         'wikiConcealLinkMdImg'],
       \ ['wikiLinkDate',      'date'],
       \]
-  let s:rx = wiki#link#{s:type}#matcher().rx
+  let s:rx = g:wiki#link#def#{s:type}.rx
 
   execute 'syntax cluster wikiLink  add=' . s:group
   execute 'syntax match' s:group
