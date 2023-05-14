@@ -44,17 +44,17 @@ unlet s:i s:gcolors s:ccolors
 
 " Add syntax groups and clusters for links
 for [s:group, s:type; s:contained] in [
-      \ ['wikiLinkUrl',       'url',            'wikiConcealLink'],
+      \ ['wikiLinkUrl',       'url',        'wikiConcealLink'],
       \ ['wikiLinkUrl',       'cite'],
-      \ ['wikiLinkWiki',      'wiki',           'wikiConcealLinkWiki'],
-      \ ['wikiLinkRef',       'ref_shortcut'],
-      \ ['wikiLinkRef',       'ref_full',       'wikiConcealLinkRef'],
-      \ ['wikiLinkRefTarget', 'ref_definition', 'wikiLinkUrl'],
-      \ ['wikiLinkMd',        'md',             'wikiConcealLinkMd'],
-      \ ['wikiLinkMdImg',     'md_fig',         'wikiConcealLinkMdImg'],
+      \ ['wikiLinkWiki',      'wiki',       'wikiConcealLinkWiki'],
+      \ ['wikiLinkRef',       'reference'],
+      \ ['wikiLinkRef',       'ref_full',   'wikiConcealLinkRef'],
+      \ ['wikiLinkRefTarget', 'ref_target', 'wikiLinkUrl'],
+      \ ['wikiLinkMd',        'md',         'wikiConcealLinkMd'],
+      \ ['wikiLinkMdImg',     'md_fig',     'wikiConcealLinkMdImg'],
       \ ['wikiLinkDate',      'date'],
       \]
-  let s:rx = g:wiki#link#def#{s:type}.rx
+  let s:rx = g:wiki#link#definitions#{s:type}.rx
 
   execute 'syntax cluster wikiLink  add=' . s:group
   execute 'syntax match' s:group
