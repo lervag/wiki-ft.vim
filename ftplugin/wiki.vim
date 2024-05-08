@@ -45,11 +45,13 @@ call wiki#init#apply_mappings_from_dict(s:mappings, '<buffer>')
 function! WikiFoldLevel(lnum) abort " {{{1
   let l:line = getline(a:lnum)
 
-  if l:line =~# '^\s*```'
-    return wiki#u#is_code(a:lnum+1) ? 'a1' : 's1'
+  if wiki#u#is_code(a:lnum)
+    return l:line =~# '^\s*```'
+          \ ? (wiki#u#is_code(a:lnum+1) ? 'a1' : 's1')
+          \ : '='
   endif
 
-  if l:line =~# g:wiki#rx#header_md_atx && !wiki#u#is_code(a:lnum)
+  if l:line =~# g:wiki#rx#header_md_atx
     return '>' . len(matchstr(l:line, '#*'))
   endif
 
