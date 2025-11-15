@@ -121,6 +121,7 @@ for [s:group, s:target] in [
       \ ['wikiTableLine', ''],
       \ ['wikiTodo', ''],
       \ ['wikiTime', ''],
+      \ ['wikiDate', ''],
       \ ['wikiNumber', ''],
       \ ['wikiBoldT', 'wikiBold'],
       \ ['wikiItalicT', 'wikiItalic'],
@@ -298,14 +299,16 @@ syntax match wikiIPNum   /\d\+\(\.\d\+\)\{3}/
 syntax match wikiVersion /v\d\+\(\.\d\+\)*/
 syntax match wikiVersion /\(version\|versjon\) \zs\d\+\(\.\d\+\)*/
 syntax match wikiTime    /\d\d:\d\d/
+syntax match wikiDate    /\d\d\d\d-\d\d-\d\d/
 syntax match wikiLine    /^\s*-\{4,}\s*$/
 highlight default link wikiNumber  Number
 highlight default link wikiIPNum   Identifier
 highlight default link wikiVersion Statement
-highlight default link wikiTime    Constant
+highlight default link wikiTime    ModeMsg
+highlight default link wikiDate    ModeMsg
 highlight default link wikiLine Identifier
 
 syntax match wikiEnvvar "\$\a\{2,}"
-highlight default link wikiEnvvar ModeMsg
+highlight default link wikiEnvvar Constant
 
 " }}}1
