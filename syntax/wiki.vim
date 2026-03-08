@@ -49,7 +49,11 @@ for [s:group, s:type; s:contained] in [
       \ ['wikiLinkWiki',      'wiki',       'wikiConcealLinkWiki'],
       \ ['wikiLinkRef',       'reference'],
       \ ['wikiLinkRef',       'ref_full',   'wikiConcealLinkRef'],
+      \ ['wikiLinkRef',       'ref_collapsed',   'wikiConcealLinkRef'],
       \ ['wikiLinkRefTarget', 'ref_target', 'wikiLinkUrl'],
+      \ ['wikiLinkRefImg',       'reference_fig'],
+      \ ['wikiLinkRefImg',       'ref_fig_full',   'wikiConcealLinkRef'],
+      \ ['wikiLinkRefImg',       'ref_fig_collapsed',   'wikiConcealLinkRef'],
       \ ['wikiLinkMd',        'md',         'wikiConcealLinkMd'],
       \ ['wikiLinkMdImg',     'md_fig',     'wikiConcealLinkMdImg'],
       \ ['wikiLinkDate',      'date'],
@@ -99,6 +103,8 @@ highlight default link wikiLinkMd Underlined
 highlight default link wikiLinkMdImg MoreMsg
 highlight default link wikiLinkRef Underlined
 highlight default link wikiLinkRefTarget Underlined
+highlight default link wikiLinkRefImg wikiLinkRef
+highlight default link wikiLinkRefImgTarget wikiLinkRefTarget
 highlight default link wikiLinkDate MoreMsg
 
 unlet s:group s:type s:contained s:rx
