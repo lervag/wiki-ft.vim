@@ -44,18 +44,18 @@ unlet s:i s:gcolors s:ccolors
 
 " Add syntax groups and clusters for links
 for [s:group, s:type; s:contained] in [
-      \ ['wikiLinkUrl',       'url',        'wikiConcealLink'],
+      \ ['wikiLinkUrl',       'url',               'wikiConcealLink'],
       \ ['wikiLinkUrl',       'cite'],
-      \ ['wikiLinkWiki',      'wiki',       'wikiConcealLinkWiki'],
+      \ ['wikiLinkWiki',      'wiki',              'wikiConcealLinkWiki'],
       \ ['wikiLinkRef',       'reference'],
-      \ ['wikiLinkRef',       'ref_full',   'wikiConcealLinkRef'],
-      \ ['wikiLinkRef',       'ref_collapsed',   'wikiConcealLinkRef'],
-      \ ['wikiLinkRefTarget', 'ref_target', 'wikiLinkUrl'],
-      \ ['wikiLinkRefImg',       'reference_fig'],
-      \ ['wikiLinkRefImg',       'ref_fig_full',   'wikiConcealLinkRef'],
-      \ ['wikiLinkRefImg',       'ref_fig_collapsed',   'wikiConcealLinkRef'],
-      \ ['wikiLinkMd',        'md',         'wikiConcealLinkMd'],
-      \ ['wikiLinkMdImg',     'md_fig',     'wikiConcealLinkMdImg'],
+      \ ['wikiLinkRef',       'ref_full',          'wikiConcealLinkRef'],
+      \ ['wikiLinkRef',       'ref_collapsed',     'wikiConcealLinkRef'],
+      \ ['wikiLinkRefTarget', 'ref_target',        'wikiLinkRefUrl'],
+      \ ['wikiLinkMd',        'md',                'wikiConcealLinkMd'],
+      \ ['wikiLinkRefImg',    'reference_fig',     'wikiLinkImgMark'],
+      \ ['wikiLinkRefImg',    'ref_fig_full',      'wikiLinkImgMark,wikiConcealLinkRef'],
+      \ ['wikiLinkRefImg',    'ref_fig_collapsed', 'wikiLinkImgMark,wikiConcealLinkRef'],
+      \ ['wikiLinkMdImg',     'md_fig',            'wikiLinkImgMark,wikiConcealLinkMdImg'],
       \ ['wikiLinkDate',      'date'],
       \]
   let s:rx = g:wiki#link#definitions#{s:type}.rx
@@ -77,6 +77,8 @@ endfor
 syntax match wikiLinkUrl "<\l\+:\%(\/\/\)\?[^>]\+>"
       \ display contains=@NoSpell,wikiConcealLink
 
+syntax match wikiLinkRefUrl "^\s*\[[^\\\[\]]\{-}\]:\s\+\zs.*" display contains=@NoSpell
+
 syntax match wikiConcealLinkUrl
       \ `\%(///\=[^/ \t]\+/\)\zs\S\+\ze\%([/#?]\w\|\S\{15}\)`
       \ cchar=~ contained transparent contains=NONE conceal
@@ -96,8 +98,10 @@ syntax match wikiConcealLinkRef /[\]\[]\@<!\[/
       \ contained transparent contains=NONE conceal
 syntax match wikiConcealLinkRef /\]\[[^\\\[\]]\{-}\]/
       \ contained transparent contains=NONE conceal
+syntax match wikiLinkImgMark /!/ contained
 
 highlight default link wikiLinkUrl ModeMsg
+highlight default link wikiLinkRefUrl wikiLinkUrl
 highlight default link wikiLinkWiki Underlined
 highlight default link wikiLinkMd Underlined
 highlight default link wikiLinkMdImg MoreMsg
@@ -106,6 +110,7 @@ highlight default link wikiLinkRefTarget Underlined
 highlight default link wikiLinkRefImg wikiLinkRef
 highlight default link wikiLinkRefImgTarget wikiLinkRefTarget
 highlight default link wikiLinkDate MoreMsg
+highlight default link wikiLinkImgMark Title
 
 unlet s:group s:type s:contained s:rx
 
