@@ -90,7 +90,7 @@ syntax match wikiConcealLinkMd /\[/
       \ contained transparent contains=NONE conceal
 syntax match wikiConcealLinkMd /\]([^\\]\{-})/
       \ contained transparent contains=NONE conceal
-syntax match wikiConcealLinkMdImg /!\[/
+syntax match wikiConcealLinkMdImg /\[/
       \ contained transparent contains=NONE conceal
 syntax match wikiConcealLinkMdImg /\]([^\\]\{-})/
       \ contained transparent contains=NONE conceal
